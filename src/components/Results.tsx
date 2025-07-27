@@ -1,7 +1,9 @@
+import { useState } from "react";
 import type { FC } from "react";
 import type { Item } from "../types/nasa-api";
 // import Box from '@mui/material/Box';
 // import Button from "@mui/material/Button";
+// import Dialog from "@mui/material/Dialog";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,12 +13,22 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 // import TableSortLabel from '@mui/material/TableSortLabel';
 import Typography from "@mui/material/Typography";
+import Overlay from "./Overlay";
 // import { visuallyHidden } from '@mui/utils';
 // import Media from "./Media";
 
 // <Box component="span" sx={visuallyHidden}>hidden text</Box>
 
 const Results: FC<{ items: Item[] }> = ({ items }) => {
+  // states
+  const [open, setOpen] = useState<boolean>(false);
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+  // handlers
+  const handleClose = () => {
+    setOpen(false);
+    // setSelectedItem(null);
+  };
+  // component context
   const hasItems = items && items.length > 0;
   // JSX no items
   if (!hasItems) {
@@ -53,7 +65,10 @@ const Results: FC<{ items: Item[] }> = ({ items }) => {
               return (
                 <TableRow
                   hover
-                  onClick={() => console.log("Row clicked", key)}
+                  onClick={() => {
+                    setSelectedItem(item);
+                    setOpen(true);
+                  }}
                   tabIndex={-1}
                   key={key}
                   sx={{ cursor: "pointer" }}
@@ -81,6 +96,7 @@ const Results: FC<{ items: Item[] }> = ({ items }) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Overlay open={open} selectedItem={selectedItem} onClose={handleClose} />
     </div>
   );
 };
