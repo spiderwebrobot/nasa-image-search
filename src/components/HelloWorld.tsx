@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import type { FC } from "react";
 import type { Collection, MediaTypes, SearchParams } from "../types/nasa-api";
+import Results from "./Results";
+import Pagination from "./Pagination";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
 
@@ -8,7 +11,6 @@ const initialSearchParams = {
   q: "",
   media_type: "",
   page_size: "10",
-  // page: "1",
 };
 
 const initialMediaTypes = {
@@ -23,17 +25,20 @@ const getMediaType = (obj: MediaTypes) => {
   return filtered.length > 0 ? filtered.join(",") : "";
 };
 
-const HelloWorld: React.FC = () => {
+const HelloWorld: FC = () => {
   // states
   const [searchParams, setSearchParams] =
     useState<SearchParams>(initialSearchParams);
   const [q, setQ] = useState<string>("");
   const [mediaTypes, setMediaTypes] = useState<MediaTypes>(initialMediaTypes);
   const [pageSize, setPageSize] = useState<string>("10");
+  // const [page, setPage] = useState<string>("1");
   // fetch URL
   const fetchUrlParams = new URLSearchParams(searchParams);
   const fetchUrl = `${API_URL}/search?${fetchUrlParams.toString()}`;
   // fetch data
+  // TODO: data is refreshed when other states change... can this be fixed?
+  // e.g. when pageSize changes, the data is fetched again
   const { data, isLoading, error } = useQuery({
     queryKey: [searchParams],
     queryFn: async () => {
@@ -48,8 +53,10 @@ const HelloWorld: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const media_type = getMediaType(mediaTypes);
-    console.log("pageSize:", pageSize);
     setSearchParams({ q, media_type, page_size: pageSize });
+  };
+  const onPaginate = (page: string) => {
+    setSearchParams({ ...searchParams, page });
   };
   // JSX loading
   if (isLoading) return <div>Loading...</div>;
@@ -113,8 +120,8 @@ const HelloWorld: React.FC = () => {
           <button type="submit">Search</button>
         </form>
         <p>TODO:metadata... {JSON.stringify(metadata)}</p>
-        <p>TODO:items... {items.length}</p>
-        <p>TOD:links... {JSON.stringify(links)}</p>
+        <Results items={items} />
+        {links && <Pagination links={links} onPaginate={onPaginate} />}
       </div>
     </section>
   );
