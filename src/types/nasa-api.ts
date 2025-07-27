@@ -60,4 +60,5 @@ export type SearchParams = {
   q: string;
   media_type: string;
   page_size: string; // Changed from number to string
+  page?: string; // Changed from number to string
 };
