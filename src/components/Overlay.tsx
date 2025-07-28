@@ -5,6 +5,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 export interface OverlayProps {
   open: boolean;
@@ -13,10 +14,7 @@ export interface OverlayProps {
 }
 
 const Overlay: FC<OverlayProps> = ({ onClose, selectedItem, open }) => {
-  // handlers
-  const handleClose = () => {
-    console.log("close overlay");
-  };
+  // component context
   const title = selectedItem?.data[0]?.title || "No title";
   const description = selectedItem?.data[0]?.description;
   const largeSrc = selectedItem?.links?.find(({ rel, href }) => {
@@ -27,18 +25,22 @@ const Overlay: FC<OverlayProps> = ({ onClose, selectedItem, open }) => {
   );
   // JSX
   return (
-    <Dialog onClose={handleClose} open={open}>
+    <Dialog open={open}>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <figure>
+        <figure className="overlay-figure">
           <div>
             <img
+              className="overlay-image"
               src={largeSrc?.href || originalSrc?.href}
               alt={title}
-              style={{ maxWidth: "100%", height: "auto" }}
             />
           </div>
-          <figcaption>{description}</figcaption>
+          <figcaption>
+            <Typography variant="body1" component="p">
+              {description}
+            </Typography>
+          </figcaption>
         </figure>
       </DialogContent>
       <DialogActions>
