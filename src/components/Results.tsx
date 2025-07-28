@@ -58,7 +58,7 @@ const Results: FC<ResultsProps> = ({ items, totalHits, isLoading }) => {
   // JSX success
   return (
     <div className="results">
-      <Typography variant="h3" component="h2" gutterBottom>
+      <Typography variant="h3" component="h2" gutterBottom id="tableTitle">
         {totalHits.toLocaleString("en-US")} search results
       </Typography>
       <TableContainer>
@@ -95,13 +95,18 @@ const Results: FC<ResultsProps> = ({ items, totalHits, isLoading }) => {
                     {preview ? (
                       <div>
                         <img
+                          className="preview-image"
                           src={preview.href}
                           alt={title}
                           style={{ maxWidth: "100px", maxHeight: "100px" }}
                         />
                       </div>
                     ) : (
-                      <span>No preview available</span>
+                      <span className="preview-missing">
+                        <Typography variant="body1" component="span">
+                          No preview available
+                        </Typography>
+                      </span>
                     )}
                   </TableCell>
                 </TableRow>

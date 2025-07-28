@@ -9,7 +9,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
-// import { InfoOutlined } from "@mui/icons-material";
 
 const initialMediaTypes = {
   image: true,
@@ -63,7 +62,7 @@ const Search: FC<SearchProps> = ({ onSubmit, isLoading }) => {
   // JSX
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form className="search-form" onSubmit={handleSubmit}>
         <div>
           <TextField
             label="Search query"
@@ -71,36 +70,39 @@ const Search: FC<SearchProps> = ({ onSubmit, isLoading }) => {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="e.g. Apollo 11"
+            slotProps={{ htmlInput: { minLength: 3 } }}
             variant="outlined"
             fullWidth
           />
         </div>
-        <FormControl
-          sx={{ m: 3, margin: 0 }}
-          component="fieldset"
-          variant="standard"
-        >
-          <FormLabel component="legend">Select media types</FormLabel>
-          <FormGroup sx={{ flexDirection: "row" }}>
-            {mediaList.map((option) => (
-              <FormControlLabel
-                key={option}
-                control={
-                  <Checkbox
-                    checked={mediaTypes[option as keyof MediaTypes]}
-                    onChange={handleMediaTypeChange}
-                    value={option}
-                    name="mediaType"
-                  />
-                }
-                label={option}
-              />
-            ))}
-          </FormGroup>
-          <FormHelperText>
-            Heads up, unchecking all media types will return 0 results
-          </FormHelperText>
-        </FormControl>
+        <div>
+          <FormControl
+            sx={{ m: 3, margin: 0 }}
+            component="fieldset"
+            variant="standard"
+          >
+            <FormLabel component="legend">Select media types</FormLabel>
+            <FormGroup sx={{ flexDirection: "row" }}>
+              {mediaList.map((option) => (
+                <FormControlLabel
+                  key={option}
+                  control={
+                    <Checkbox
+                      checked={mediaTypes[option as keyof MediaTypes]}
+                      onChange={handleMediaTypeChange}
+                      value={option}
+                      name="mediaType"
+                    />
+                  }
+                  label={option}
+                />
+              ))}
+            </FormGroup>
+            <FormHelperText>
+              Heads up, unchecking all media types will return 0 results
+            </FormHelperText>
+          </FormControl>
+        </div>
         <div>
           <TextField
             label="Results per page"

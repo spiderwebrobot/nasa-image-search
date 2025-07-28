@@ -1,0 +1,53 @@
+.grid-panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  column-gap: 3rem;
+  row-gap: 2rem;
+}
+
+.search-form {
+  display: grid;
+  column-gap: 1rem;
+  row-gap: 2rem;
+}
+
+.overlay-figure {
+  margin: 0;
+}
+
+.overlay-image {
+  max-width: 100%;
+  display: block;
+}
+
+.overlay-image[width] {
+  width: auto;
+}
+
+.overlay-image[width][height] {
+  height: auto;
+}
+
+.preview-image {
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.preview-missing {
+  display: inline-block;
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  background-color: whitesmoke;
+}
+
+.pagination {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 1rem;
+  row-gap: 1rem;
+  align-items: center;
+}
