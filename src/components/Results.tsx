@@ -1,35 +1,47 @@
 import { useState } from "react";
 import type { FC } from "react";
 import type { Item } from "../types/nasa-api";
-// import Box from '@mui/material/Box';
-// import Button from "@mui/material/Button";
-// import Dialog from "@mui/material/Dialog";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-// import TablePagination from '@mui/material/TablePagination';
 import TableRow from "@mui/material/TableRow";
-// import TableSortLabel from '@mui/material/TableSortLabel';
 import Typography from "@mui/material/Typography";
 import Overlay from "./Overlay";
+// import Box from '@mui/material/Box';
 // import { visuallyHidden } from '@mui/utils';
-// import Media from "./Media";
+// usage: <Box component="span" sx={visuallyHidden}>hidden text</Box>
 
-// <Box component="span" sx={visuallyHidden}>hidden text</Box>
+interface ResultsProps {
+  items: Item[];
+  totalHits: number;
+  isLoading: boolean;
+}
 
-const Results: FC<{ items: Item[] }> = ({ items }) => {
+const Results: FC<ResultsProps> = ({ items, totalHits, isLoading }) => {
   // states
   const [open, setOpen] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   // handlers
   const handleClose = () => {
     setOpen(false);
+    // NOTE: no need to reset selectedItem here
+    // as the Overlay component handles it
     // setSelectedItem(null);
   };
   // component context
   const hasItems = items && items.length > 0;
+  // JSX is loading
+  if (isLoading) {
+    return (
+      <div className="results">
+        <Typography variant="h3" component="h2" gutterBottom>
+          Loading results...
+        </Typography>
+      </div>
+    );
+  }
   // JSX no items
   if (!hasItems) {
     return (
@@ -37,18 +49,20 @@ const Results: FC<{ items: Item[] }> = ({ items }) => {
         <Typography variant="h3" component="h2" gutterBottom>
           No search results
         </Typography>
-        <p>Please try again.</p>
+        <Typography variant="body1" component="p">
+          Please enter a search term, or adjust your filters.
+        </Typography>
       </div>
     );
   }
-  // JSX
+  // JSX success
   return (
     <div className="results">
       <Typography variant="h3" component="h2" gutterBottom>
-        Search Results
+        {totalHits.toLocaleString("en-US")} search results
       </Typography>
       <TableContainer>
-        <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="small">
+        <Table aria-labelledby="tableTitle" size="small">
           <TableHead>
             <TableRow>
               <TableCell>Title</TableCell>
