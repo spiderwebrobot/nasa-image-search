@@ -15,11 +15,11 @@ Open up your browser and visit http://localhost:5173/. When you are done reviewi
 
 I chose to work with the [NASA Image and Video Library](https://images.nasa.gov) API because the “search” endpoint offered plenty of opportunities for filtering and paginating data.
 
-I started the project by making sure I was able to connect to the API. Once that was established, I copied the API response as a static JSON file, and then asked [GitHub Copilot](https://github.com/features/copilot)...
+I started the project by making sure I was able to connect to the API. Once that was established, I copied the API response to a static JSON file, and then asked [GitHub Copilot](https://github.com/features/copilot)...
 
 > Could you please help me write TypeScript interfaces for this JSON response?
 
-Once I had the interfaces outlined I began building a functional UI in one component. As I progressed through the basic functionality, I began to break about the one component into subcomponents. Finally I worked on polishing up the UI with Material UI.
+Once I had the interfaces outlined I began building a functional UI in one component. As I progressed through the basic functionality, I began to break out the one component into subcomponents. Finally I worked on polishing up the UI with Material UI.
 
 ## Technologies
 
@@ -37,7 +37,7 @@ I assume that...
 I would...
 
 - Figure out how NOT to fetch data on initial page load
-- Find an elegant solution for loading the overlay-images
+- Find an elegant solution for loading the modal-images
 - Explore the [View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API)
 - Write more functions for parsing the response data
 - Include [Playwright](https://playwright.dev/) tests
