@@ -15,7 +15,7 @@ const initialParams = {
   page_size: "10",
 };
 
-const HelloWorld: FC = () => {
+const SearchResults: FC = () => {
   // states
   const [searchParams, setSearchParams] = useState<SearchParams>(initialParams);
   // fetch URL
@@ -51,7 +51,7 @@ const HelloWorld: FC = () => {
   const { total_hits: totalHits = 0 } = metadata;
   // JSX
   return (
-    <div className="grid-panels">
+    <div className="search-results">
       <div>
         <Search onSubmit={onSubmit} isLoading={isLoading} />
       </div>
@@ -83,4 +83,4 @@ const HelloWorld: FC = () => {
   );
 };
 
-export default HelloWorld;
+export default SearchResults;

@@ -1,6 +1,5 @@
-import HelloWorld from "./components/HelloWorld";
 import Typography from "@mui/material/Typography";
-// import "./App.css";
+import SearchResults from "./components/SearchResults";
 
 const App: React.FC = () => {
   // JSX
@@ -9,7 +8,7 @@ const App: React.FC = () => {
       <Typography variant="h1" component="h1" gutterBottom>
         NASA image search
       </Typography>
-      <HelloWorld />
+      <SearchResults />
     </>
   );
 };
